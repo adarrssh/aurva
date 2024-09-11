@@ -129,69 +129,6 @@ const App: React.FC = () => {
   const [nodeBg, setNodeBg] = useState<string>('#eee');
   const [nodeHidden, setNodeHidden] = useState<boolean>(false);
 
-  useEffect(() => {
-    setNodes((nds) =>
-      nds.map((node) => {
-        if (node.id === '1') {
-          return {
-            ...node,
-            data: {
-              ...node.data,
-              label: nodeName,
-            },
-          };
-        }
-
-        return node;
-      })
-    );
-  }, [nodeName, setNodes]);
-
-  useEffect(() => {
-    setNodes((nds) =>
-      nds.map((node) => {
-        if (node.id === '1') {
-          return {
-            ...node,
-            style: {
-              ...node.style,
-              backgroundColor: nodeBg,
-            },
-          };
-        }
-
-        return node;
-      })
-    );
-  }, [nodeBg, setNodes]);
-
-  useEffect(() => {
-    setNodes((nds) =>
-      nds.map((node) => {
-        if (node.id === '1') {
-          return {
-            ...node,
-            hidden: nodeHidden,
-          };
-        }
-
-        return node;
-      })
-    );
-    setEdges((eds) =>
-      eds.map((edge) => {
-        if (edge.id === 'e1-2') {
-          return {
-            ...edge,
-            hidden: nodeHidden,
-          };
-        }
-
-        return edge;
-      })
-    );
-  }, [nodeHidden, setNodes, setEdges]);
-
   return (
     <ReactFlow
       nodes={nodes}
