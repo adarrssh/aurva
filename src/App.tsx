@@ -3,27 +3,31 @@ import { ReactFlow, useNodesState, useEdgesState, Node, Edge, Position, Backgrou
 import '@xyflow/react/dist/style.css';
 
 import './App.css';
-import CustomNode from './components/Nodes';
+import defaultCustomNode from './components/DefaultNode';
+import categoryCustomNode from './components/categoryNode';
 
-const nodeTypes = { custom: CustomNode };
+const nodeTypes = {
+  defaultCustomNode,
+  categoryCustomNode
+};
 
 
 // Define types for nodes and edges
 const defaultNode: Node = {
   id: '0',
-  data: { label: 'Explore'}, 
+  data: { label: 'Explore' },
   position: { x: 100, y: 300 },
   sourcePosition: Position.Right,
   targetPosition: Position.Left,
-  type:'custom'
+  type: 'defaultCustomNode'
 };
 
 const additionalNodes: Node[] = [
-  { id: '1', data: { label: 'Node 1' }, position: { x: 300, y: 100 }, sourcePosition: Position.Right, targetPosition: Position.Left },
-  { id: '2', data: { label: 'Node 2' }, position: { x: 300, y: 200 }, sourcePosition: Position.Right, targetPosition: Position.Left },
-  { id: '3', data: { label: 'Node 3' }, position: { x: 300, y: 300 }, sourcePosition: Position.Right, targetPosition: Position.Left },
-  { id: '4', data: { label: 'Node 4' }, position: { x: 300, y: 400 }, sourcePosition: Position.Right, targetPosition: Position.Left },
-  { id: '5', data: { label: 'Node 5' }, position: { x: 300, y: 500 }, sourcePosition: Position.Right, targetPosition: Position.Left },
+  { id: '1', data: { label: 'Node 1' }, position: { x: 300, y: 100 }, sourcePosition: Position.Right, targetPosition: Position.Left, type: 'categoryCustomNode' },
+  { id: '2', data: { label: 'Node 2' }, position: { x: 300, y: 200 }, sourcePosition: Position.Right, targetPosition: Position.Left, type: 'categoryCustomNode' },
+  { id: '3', data: { label: 'Node 3' }, position: { x: 300, y: 300 }, sourcePosition: Position.Right, targetPosition: Position.Left, type: 'categoryCustomNode' },
+  { id: '4', data: { label: 'Node 4' }, position: { x: 300, y: 400 }, sourcePosition: Position.Right, targetPosition: Position.Left, type: 'categoryCustomNode' },
+  { id: '5', data: { label: 'Node 5' }, position: { x: 300, y: 500 }, sourcePosition: Position.Right, targetPosition: Position.Left, type: 'categoryCustomNode' }, 
 ];
 
 const initialEdges: Edge[] = [
