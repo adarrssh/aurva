@@ -1,4 +1,4 @@
-import { Edge } from "@xyflow/react";
+import { Edge, Node } from "@xyflow/react";
 import { Category } from "../interface";
 
 const createCategoriesEdges = (categories: Category[]) : Edge[]   => {
@@ -9,6 +9,22 @@ const createCategoriesEdges = (categories: Category[]) : Edge[]   => {
     }));
 }
 
+const createViewMealsEdge = (node: Node, nodesArr : Node[] ) : Edge=> {
+    const sourceId = node.id
+    const n = nodesArr.length-1;
+    const id = nodesArr[n].id
+    const newId = (Number(id) + 1).toString()
 
-export {createCategoriesEdges}
+    console.log({newId})
+    return {
+        id: 'e' + `${sourceId}` + '-' + `${newId}`,
+        source:`${sourceId}`,
+        target:`${newId}`,
+        type: 'step'
+    }
+} 
+
+
+
+export {createCategoriesEdges, createViewMealsEdge}
 

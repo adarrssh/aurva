@@ -18,28 +18,20 @@ const addViewMealsNode = (node: Node, nodesArr : Node[] ) : Node => {
     const {position, data} = node;
     const {  x : xAxisPos ,  y : yAxisPos  } = position
 
+    console.log(data.label)
+
     return {
         id: (Number(id) + 1).toString(),
-        data : {label : 'view Meals'},
-        position : { x : xAxisPos + 200 , y: yAxisPos },
+        data : {label : 'view Meals', food:data.label},
+        position : { x : xAxisPos + 200 , y: yAxisPos - 100 },
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
+        type: 'viewMealNode',
+
     }
     
 }
 
-const addViewMealsEdge = (node: Node, nodesArr : Node[] ) : Edge=> {
-    const sourceId = node.id
-    const n = nodesArr.length-1;
-    const id = nodesArr[n].id
-    const newId = (Number(id) + 1).toString()
 
-    console.log({newId})
-    return {
-        id: 'e' + `${sourceId}` + '-' + `${newId}`,
-        source:`${sourceId}`,
-        target:`${newId}`
-    }
-} 
 
-export  {convertCategoriesToNodes, addViewMealsNode, addViewMealsEdge}
+export  {convertCategoriesToNodes, addViewMealsNode}
