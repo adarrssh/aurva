@@ -1,6 +1,6 @@
 import React from "react";
 import { Handle, NodeProps, Position } from "@xyflow/react";
-import mealIcon from "../assets/arrow.png";
+import mealIcon from "../../assets/arrow.png";
 
 const ViewMealNode: React.FC<NodeProps> = ({data}) => {
   return (

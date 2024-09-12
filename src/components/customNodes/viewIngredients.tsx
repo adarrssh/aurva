@@ -1,6 +1,6 @@
 import React from "react";
 import { Handle, NodeProps, Position } from "@xyflow/react";
-import meals from "../assets/meals.png";
+import meals from "../../assets/meals.png";
 
 // Define your custom node component
 const viewIngredientsNode: React.FC<NodeProps> = ({data}) => {

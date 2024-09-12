@@ -1,9 +1,9 @@
 import React from "react";
 import { Handle, NodeProps, Position } from "@xyflow/react";
-import tags from "../assets/tags.png";
+import meals from "../../assets/meals.png";
 
 // Define your custom node component
-const SingleTagNode: React.FC<NodeProps> = ({ data }) => {
+const SingleViewMealNode: React.FC<NodeProps> = ({ data }) => {
   return (
     <div className="flex flex-row w-[200px]  rounded border border-black py-2 px-2">
       <Handle
@@ -13,7 +13,7 @@ const SingleTagNode: React.FC<NodeProps> = ({ data }) => {
         isConnectable={true}
       />
       <div className="flex flex-2 justify-center items-center  px-4">
-        <img src={tags} alt="img" width={"20px"} height={"20px"} />
+        <img src={meals} alt="img" width={"20px"} height={"20px"} />
       </div>
       <div className="flex flex-1 justify-start items-center break-words overflow-clip">
         {(data as any).label}
@@ -28,4 +28,4 @@ const SingleTagNode: React.FC<NodeProps> = ({ data }) => {
   );
 };
 
-export default SingleTagNode;
+export default SingleViewMealNode;

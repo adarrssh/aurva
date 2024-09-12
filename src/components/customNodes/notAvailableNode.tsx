@@ -1,10 +1,11 @@
 import React from "react";
-import { Handle, type NodeProps, Position } from "@xyflow/react";
-import categoryIcon from "../assets/category.png";
+import { Handle, NodeProps, Position } from "@xyflow/react";
+import cross from "../../assets/cross.png";
 
-const CustomNode: React.FC<NodeProps> = ({ data }) => {
+// Define your custom node component
+const NotAvailablNode: React.FC<NodeProps> = ({ data }) => {
   return (
-    <div className="flex flex-row w-[180px] rounded border border-black py-2">
+    <div className="flex flex-row w-[120px] h-[40px] rounded border border-black">
       <Handle
         type="source"
         position={Position.Right}
@@ -12,7 +13,7 @@ const CustomNode: React.FC<NodeProps> = ({ data }) => {
         isConnectable={true}
       />
       <div className="flex flex-2 justify-center items-center  px-4">
-        <img src={categoryIcon} alt="img" className="h-[15px] w-[15px]" />
+        <img src={cross} alt="img" width={"20px"} height={"20px"} />
       </div>
       <div className="flex flex-1 justify-start items-center break-words overflow-clip">
         {(data as any).label}
@@ -27,4 +28,4 @@ const CustomNode: React.FC<NodeProps> = ({ data }) => {
   );
 };
 
-export default CustomNode;
+export default NotAvailablNode;

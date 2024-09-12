@@ -1,6 +1,6 @@
 import React from "react";
 import { Handle, NodeProps, Position } from "@xyflow/react";
-import globeIcon from "../assets/image.png";
+import globeIcon from "../../assets/image.png";
 
 // Define your custom node component
 const CustomNode: React.FC<NodeProps> = () => {

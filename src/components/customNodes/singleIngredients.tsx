@@ -1,6 +1,6 @@
 import React from "react";
 import { Handle, NodeProps, Position } from "@xyflow/react";
-import ingredients from "../assets/ingredients.png";
+import ingredients from "../../assets/ingredients.png";
 
 // Define your custom node component
 const SingleIngridientNode: React.FC<NodeProps> = ({data}) => {
