@@ -3,7 +3,7 @@ import { Handle, NodeProps, Position } from "@xyflow/react";
 import globeIcon from "../assets/image.png";
 
 // Define your custom node component
-const CustomNode: React.FC<NodeProps> = ({  }) => {
+const CustomNode: React.FC<NodeProps> = () => {
   return (
     <div
       style={{

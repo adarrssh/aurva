@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ReactFlow, useNodesState, useEdgesState, Node, Edge, Position, Background } from '@xyflow/react';
+import { ReactFlow, useNodesState, useEdgesState, Node, Edge, Position, Background, type NodeTypes,  } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
 import './App.css';
@@ -7,9 +7,8 @@ import defaultCustomNode from './components/DefaultNode';
 import categoryCustomNode from './components/categoryNode';
 import fetchMealCategory from './services/fetchMealCategory';
 import { convertCategoriesToNodes } from './util/convertCategoriesToNodes';
-import { CustomNodeData } from './types';
 
-const nodeTypes = {
+const nodeTypes : NodeTypes = {
   defaultCustomNode,
   categoryCustomNode
 };
@@ -41,7 +40,7 @@ const App: React.FC = () => {
   
   const [nodes, setNodes, onNodesChange] = useNodesState([defaultNode]);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [additionalNodes, setAdditionalNodes] = useState<Node<CustomNodeData>[]>([])
+  const [additionalNodes, setAdditionalNodes] = useState<Node[]>([])
   const [showAdditionalNodes, setShowAdditionalNodes] = useState<boolean>(false);
 
 

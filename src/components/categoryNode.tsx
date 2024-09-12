@@ -1,12 +1,10 @@
 import React from "react";
-import { Handle, NodeProps, Position } from "@xyflow/react";
+import { Handle, type NodeProps, Position } from "@xyflow/react";
 import categoryIcon from "../assets/category.png";
-import { CustomNodeData } from '../types';
 
 
-// Define your custom node component
 const CustomNode: React.FC<NodeProps> = ({ data }) => {
-
+  console.log(data);
   return (
     <div
       style={{
@@ -44,7 +42,7 @@ const CustomNode: React.FC<NodeProps> = ({ data }) => {
           alignContent: "center",
         }}
       >
-        aa
+        {(data as any).label}
       </div>
       <Handle
         type="target"

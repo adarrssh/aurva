@@ -1,8 +1,7 @@
 import { Node, Position } from "@xyflow/react";
-import { CustomNodeData } from "../types";
 import { Category } from "../interface";
 
-const convertCategoriesToNodes = (categories: Category[]): Node<CustomNodeData>[] => {
+const convertCategoriesToNodes = (categories: Category[]): Node[] => {
     return categories.slice(0, 5).map((category, index) => ({
         id: (index + 1).toString(),
         data: { label: category.strCategory },
