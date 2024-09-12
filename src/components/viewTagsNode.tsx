@@ -2,7 +2,8 @@ import React from "react";
 import { Handle, NodeProps, Position } from "@xyflow/react";
 import mealIcon from "../assets/arrow.png";
 
-const ViewMealNode: React.FC<NodeProps> = ({data}) => {
+// Define your custom node component
+const ViewTagsNode: React.FC<NodeProps> = ({data}) => {
   return (
     <div
       style={{
@@ -52,4 +53,4 @@ const ViewMealNode: React.FC<NodeProps> = ({data}) => {
   );
 };
 
-export default ViewMealNode;
+export default ViewTagsNode;

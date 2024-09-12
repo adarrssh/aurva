@@ -20,6 +20,7 @@ import {
   addIngrdientsTagsAndDetailsNode,
   addIngredientsNode,
   addMealsofSingleCategory,
+  addTagsNode,
   addViewMealsNode,
   convertCategoriesToNodes,
 } from "./util/createNodes";
@@ -28,10 +29,12 @@ import {
   createIngredientEdge,
   createIngredientsTagsAndDetailsEdge,
   createMealsEdge,
+  createTagsEdge,
   createViewMealsEdge,
 } from "./util/createEdges";
 import SingleViewMealNode from "./components/singleMealNode";
 import viewIngredientsNode from "./components/viewIngredients";
+import ViewTagsNode from "./components/viewTagsNode";
 
 const nodeTypes: NodeTypes = {
   defaultCustomNode,
@@ -39,6 +42,7 @@ const nodeTypes: NodeTypes = {
   viewMealNode,
   SingleViewMealNode,
   viewIngredientsNode,
+  ViewTagsNode
 };
 
 const defaultNode: Node = {
@@ -68,6 +72,8 @@ const App: React.FC = () => {
 
   const handleNodeClick = async (event: React.MouseEvent, node: Node) => {
     try {
+
+      console.log(node);
       if (node.id === "0" && !showCategoryNode) {
         setNodes((nds) => [...nds, ...additionalNodes]);
         setEdges((nds) => [...nds, ...additionalEdges]);
@@ -113,6 +119,18 @@ const App: React.FC = () => {
         }
 
         const getEdges = createIngredientEdge(node,nodes)
+        setEdges((nds)=>[...nds, ...getEdges])
+      }
+
+      if(node.type == "ViewTagsNode"){
+        const result = await addTagsNode(node,nodes)
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          setNodes((prevNodes) => [...prevNodes, ...result]);
+        }
+
+        const getEdges = createTagsEdge(node,nodes);
         setEdges((nds)=>[...nds, ...getEdges])
       }
     } catch (error) {
