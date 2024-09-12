@@ -36,17 +36,16 @@ import SingleViewMealNode from "./components/singleMealNode";
 import NotAvailablNode from "./components/notAvailableNode";
 import SingleIngridientNode from "./components/singleIngredients";
 
-
 const nodeTypes: NodeTypes = {
   defaultCustomNode,
   categoryCustomNode,
   viewMealNode,
-  singleViewMealNode : SingleViewMealNode,
-  viewIngredientsNode : viewMealNode,
-  viewTagsNode : viewMealNode,
-  viewDetailsNode : viewMealNode,
-  notAvailablNode:NotAvailablNode,
-  singleIngridientNode:SingleIngridientNode
+  singleViewMealNode: SingleViewMealNode,
+  viewIngredientsNode: viewMealNode,
+  viewTagsNode: viewMealNode,
+  viewDetailsNode: viewMealNode,
+  notAvailablNode: NotAvailablNode,
+  singleIngridientNode: SingleIngridientNode,
 };
 
 const defaultNode: Node = {
@@ -67,17 +66,17 @@ const App: React.FC = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [additionalNodes, setAdditionalNodes] = useState<Node[]>([]);
   const [additionalEdges, setAdditionalEdges] = useState<Edge[]>([]);
-// @ts-ignore
+
+  // @ts-ignore
   const [showAdditionalNodes, setShowAdditionalNodes] =
     useState<boolean>(false);
 
   const [showCategoryNode, setShowCategoryNode] = useState(false);
   const [showMealsNode, setShowMealsNode] = useState(false);
-// @ts-ignore
+
+  // @ts-ignore
   const handleNodeClick = async (event: React.MouseEvent, node: Node) => {
     try {
-
-      console.log(node);
       if (node.id === "0" && !showCategoryNode) {
         setNodes((nds) => [...nds, ...additionalNodes]);
         setEdges((nds) => [...nds, ...additionalEdges]);
@@ -122,21 +121,20 @@ const App: React.FC = () => {
           setNodes((prevNodes) => [...prevNodes, ...result]);
         }
 
-        const getEdges = createIngredientEdge(node,nodes)
-        setEdges((nds)=>[...nds, ...getEdges])
+        const getEdges = createIngredientEdge(node, nodes);
+        setEdges((nds) => [...nds, ...getEdges]);
       }
 
-      if(node.type == "viewTagsNode"){
-        console.log(node)
-        const result = await addTagsNode(node,nodes)
+      if (node.type == "viewTagsNode") {
+        const result = await addTagsNode(node, nodes);
         if (result instanceof Error) {
           alert(result.message);
         } else {
           setNodes((prevNodes) => [...prevNodes, ...result]);
         }
 
-        const getEdges = createTagsEdge(node,nodes);
-        setEdges((nds)=>[...nds, ...getEdges])
+        const getEdges = createTagsEdge(node, nodes);
+        setEdges((nds) => [...nds, ...getEdges]);
       }
     } catch (error) {
       if (error instanceof Error) {

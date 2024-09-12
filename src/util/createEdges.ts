@@ -27,7 +27,6 @@ const createMealsEdge = (node: Node, nodesArr : Node[] ) : Edge[] => {
     
     const sourceId = Number(node.id)
 
-    console.log({node,sourceId})
 
     return nodesArr.slice(0, 5).map((_, index) => ({
         id: 'e' + `${sourceId}` + '-' + `${sourceId + index + 1}`,

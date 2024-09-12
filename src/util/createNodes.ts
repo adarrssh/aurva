@@ -120,7 +120,7 @@ const addIngredientsNode = async (
       position: { x: xAxisPos + 300, y: yAxisPos - index * 100 },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
-      type:'singleIngridientNode'
+      type: "singleIngridientNode",
     }));
   } catch (error) {
     console.error("Error fetching meal details:", error);
@@ -144,18 +144,19 @@ const addTagsNode = async (
     const tags = mealDetails.strTags;
 
     if (!tags) {
-      return [{
-        id: (newId +1).toString(),
-        idMeal,
-        data: { label: 'NA' },
-        position: { x: xAxisPos + 300, y: yAxisPos + 1 * 100 },
-        sourcePosition: Position.Right,
-        targetPosition: Position.Left,
-        type:'notAvailablNode'
-      }];
+      return [
+        {
+          id: (newId + 1).toString(),
+          idMeal,
+          data: { label: "NA" },
+          position: { x: xAxisPos + 300, y: yAxisPos + 1 * 100 },
+          sourcePosition: Position.Right,
+          targetPosition: Position.Left,
+          type: "notAvailablNode",
+        },
+      ];
     }
 
-    // Split tags by comma and filter out any empty strings
     const ingredients = tags
       .split(",")
       .map((tag: any) => tag.trim())
