@@ -1,5 +1,6 @@
 import { Node, Position } from "@xyflow/react";
 import { Category, CustomNode, Meals } from "../interface";
+import { getAllDetailsOfMeals } from "../services/api";
 
 
 
@@ -68,7 +69,7 @@ const addIngrdientsTagsAndDetailsNode = (
       position: { x: xAxisPos + 300, y: yAxisPos - 100 },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
-      // type:'viewIngredients'
+      type:'viewIngredientsNode'
     },
     {
       id: (newId + 2).toString(),
@@ -91,9 +92,48 @@ const addIngrdientsTagsAndDetailsNode = (
   ];
 };
 
+const addIngredientsNode = async (node:CustomNode, nodesArr : Node[]) : Promise<CustomNode[] | Error> => {
+    const idMeal  = node.idMeal as string
+    const { position } = node;
+    const { x: xAxisPos, y: yAxisPos } = position;
+    const n = nodesArr.length - 1;
+    const newId = Number(nodesArr[n].id);
+
+
+    try {
+        const response = await getAllDetailsOfMeals(idMeal);
+        const mealDetails = response.data["meals"][0];
+
+        console.log(mealDetails)
+
+        const ingredients = [];
+
+        for (let i = 1; i <= 20; i++) {
+            const ingredient = mealDetails[`strIngredient${i}`];
+            if (ingredient && ingredient.trim()) {
+                ingredients.push(ingredient);
+            }
+        }
+
+
+        return ingredients.slice(0, 5).map((ingredient, index) => ({
+            id: (newId + index + 1).toString(),
+            idMeal,
+            data: { label: ingredient },
+            position: { x: xAxisPos + 300, y: yAxisPos + index * 100 },
+            sourcePosition: Position.Right,
+            targetPosition: Position.Left,
+        }));
+
+    } catch (error) {
+        console.error('Error fetching meal details:', error);
+        return new Error('Failed to fetch meal details');    }
+}
+
 export {
   convertCategoriesToNodes,
   addViewMealsNode,
   addMealsofSingleCategory,
   addIngrdientsTagsAndDetailsNode,
+  addIngredientsNode
 };

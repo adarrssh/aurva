@@ -18,18 +18,27 @@ import viewMealNode from "./components/viewMealNode";
 import { fetchCategory, fetchMealsByCategory } from "./services/api";
 import {
   addIngrdientsTagsAndDetailsNode,
+  addIngredientsNode,
   addMealsofSingleCategory,
   addViewMealsNode,
   convertCategoriesToNodes,
 } from "./util/createNodes";
-import { createCategoriesEdges ,createIngredientsTagsAndDetailsEdge,createMealsEdge,createViewMealsEdge } from "./util/createEdges";
+import {
+  createCategoriesEdges,
+  createIngredientEdge,
+  createIngredientsTagsAndDetailsEdge,
+  createMealsEdge,
+  createViewMealsEdge,
+} from "./util/createEdges";
 import SingleViewMealNode from "./components/singleMealNode";
+import viewIngredientsNode from "./components/viewIngredients";
 
 const nodeTypes: NodeTypes = {
   defaultCustomNode,
   categoryCustomNode,
   viewMealNode,
-  SingleViewMealNode
+  SingleViewMealNode,
+  viewIngredientsNode,
 };
 
 const defaultNode: Node = {
@@ -50,6 +59,7 @@ const App: React.FC = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [additionalNodes, setAdditionalNodes] = useState<Node[]>([]);
   const [additionalEdges, setAdditionalEdges] = useState<Edge[]>([]);
+
   const [showAdditionalNodes, setShowAdditionalNodes] =
     useState<boolean>(false);
 
@@ -70,7 +80,6 @@ const App: React.FC = () => {
         const viewMealNode = addViewMealsNode(node, nodes);
         const viewMealEdge = createViewMealsEdge(node, nodes);
         setNodes((nds) => [...nds, viewMealNode]);
-        console.log([...nodes, viewMealNode]);
 
         setEdges((nds) => [...nds, viewMealEdge]);
       }
@@ -80,28 +89,39 @@ const App: React.FC = () => {
         const food: string = data.food as string;
 
         const res = await fetchMealsByCategory(food);
-        const mealNodes =  addMealsofSingleCategory(node,nodes,res.meals)
-        const mealEdges = createMealsEdge(node, mealNodes)
+        const mealNodes = addMealsofSingleCategory(node, nodes, res.meals);
+        const mealEdges = createMealsEdge(node, mealNodes);
 
-        setNodes((nds) => [...nds, ...mealNodes])
-        setEdges((nds) => [...nds, ...mealEdges])
-        
+        setNodes((nds) => [...nds, ...mealNodes]);
+        setEdges((nds) => [...nds, ...mealEdges]);
       }
 
-      if(node.type == "SingleViewMealNode"){
+      if (node.type == "SingleViewMealNode") {
         const getNodes = addIngrdientsTagsAndDetailsNode(node, nodes);
-        const getEdges = createIngredientsTagsAndDetailsEdge(node,nodes)
-        setNodes((nds) => [...nds, ...getNodes])
-        setEdges((nds) => [...nds, ...getEdges])
+        const getEdges = createIngredientsTagsAndDetailsEdge(node, nodes);
+        setNodes((nds) => [...nds, ...getNodes]);
+        setEdges((nds) => [...nds, ...getEdges]);
+      }
 
+      if (node.type == "viewIngredientsNode") {
+        const result = await addIngredientsNode(node, nodes);
+
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          setNodes((prevNodes) => [...prevNodes, ...result]);
+        }
+
+        const getEdges = createIngredientEdge(node,nodes)
+        setEdges((nds)=>[...nds, ...getEdges])
       }
     } catch (error) {
       if (error instanceof Error) {
         console.error(error);
-        alert('Error: ' + error.message);
+        alert("Error: " + error.message);
       } else {
-        console.error('Unexpected error:', error);
-        alert('An unexpected error occurred');
+        console.error("Unexpected error:", error);
+        alert("An unexpected error occurred");
       }
     }
   };

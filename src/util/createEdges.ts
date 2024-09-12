@@ -61,6 +61,15 @@ const createIngredientsTagsAndDetailsEdge = (node:Node, nodesArr: Node[]) : Edge
     ]
 }
 
+const createIngredientEdge = (node: Node, nodesArr: Node[]) : Edge[] => {
+    const sourceId = Number(node.id)
 
-export {createCategoriesEdges, createViewMealsEdge, createMealsEdge, createIngredientsTagsAndDetailsEdge}
+    return nodesArr.slice(0, 5).map((_, index) => ({
+        id: 'e' + `${sourceId}` + '-' + `${sourceId + index + 3}`,
+        source:`${sourceId}`,
+        target:`${sourceId + index+3}`
+    }));
+}
+
+export {createCategoriesEdges, createViewMealsEdge, createMealsEdge, createIngredientsTagsAndDetailsEdge, createIngredientEdge}
 
