@@ -11,7 +11,6 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
-
 import defaultCustomNode from "../components/customNodes/DefaultNode";
 import categoryCustomNode from "../components/customNodes/categoryNode";
 import viewMealNode from "../components/customNodes/viewMealNode";
@@ -48,7 +47,7 @@ const nodeTypes: NodeTypes = {
   viewDetailsNode: viewMealNode,
   notAvailablNode: NotAvailablNode,
   singleIngridientNode: SingleIngridientNode,
-  singleTagNode : SingleTagNode
+  singleTagNode: SingleTagNode,
 };
 
 const defaultNode: Node = {
@@ -76,9 +75,15 @@ const Graph: React.FC = () => {
 
   const [showCategoryNode, setShowCategoryNode] = useState(false);
   const [showMealsNode, setShowMealsNode] = useState(false);
+  const [clickedViewMealNode, setClickedViewMealNode] = useState(false)
+  const [clickedOnSingleMealNode, setClickedOnSingleMealNode] = useState(false)
+  const [clickedOnShowIngridientsNoe, setClickedOnShowIngridientsNode] = useState(false)
+  const [clickedOnShowTagNode, setClickedOnShowTagNode] = useState(false)
 
   // @ts-ignore
   const handleNodeClick = async (event: React.MouseEvent, node: Node) => {
+
+    console.log(nodes)
     try {
       if (node.id === "0" && !showCategoryNode) {
         setNodes((nds) => [...nds, ...additionalNodes]);
@@ -96,7 +101,7 @@ const Graph: React.FC = () => {
         setEdges((nds) => [...nds, viewMealEdge]);
       }
 
-      if (node.type == "viewMealNode") {
+      if (node.type == "viewMealNode" && !clickedViewMealNode) {
         const { data } = node;
         const food: string = data.food as string;
 
@@ -106,16 +111,18 @@ const Graph: React.FC = () => {
 
         setNodes((nds) => [...nds, ...mealNodes]);
         setEdges((nds) => [...nds, ...mealEdges]);
+        setClickedViewMealNode(true)
       }
 
-      if (node.type == "singleViewMealNode") {
+      if (node.type == "singleViewMealNode" && !clickedOnSingleMealNode) {
         const getNodes = addIngrdientsTagsAndDetailsNode(node, nodes);
         const getEdges = createIngredientsTagsAndDetailsEdge(node, nodes);
         setNodes((nds) => [...nds, ...getNodes]);
         setEdges((nds) => [...nds, ...getEdges]);
+        setClickedOnSingleMealNode(true)
       }
 
-      if (node.type == "viewIngredientsNode") {
+      if (node.type == "viewIngredientsNode" && !clickedOnShowIngridientsNoe) {
         const result = await addIngredientsNode(node, nodes);
 
         if (result instanceof Error) {
@@ -126,9 +133,10 @@ const Graph: React.FC = () => {
 
         const getEdges = createIngredientEdge(node, nodes);
         setEdges((nds) => [...nds, ...getEdges]);
+        setClickedOnShowIngridientsNode(true)
       }
 
-      if (node.type == "viewTagsNode") {
+      if (node.type == "viewTagsNode" && !clickedOnShowTagNode) {
         const result = await addTagsNode(node, nodes);
         if (result instanceof Error) {
           alert(result.message);
@@ -138,6 +146,7 @@ const Graph: React.FC = () => {
 
         const getEdges = createTagsEdge(node, nodes);
         setEdges((nds) => [...nds, ...getEdges]);
+        setClickedOnShowTagNode(true)
       }
     } catch (error) {
       if (error instanceof Error) {

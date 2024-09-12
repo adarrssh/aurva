@@ -5,7 +5,7 @@ import mealIcon from "../../assets/arrow.png";
 const ViewMealNode: React.FC<NodeProps> = ({data}) => {
   return (
     <div
-      className="flex flex-row w-[200px] h-[40px] rounded border border-black"
+      className="flex flex-row w-[200px] h-[40px] rounded-2xl border border-black"
     >
       <Handle
         type="source"
