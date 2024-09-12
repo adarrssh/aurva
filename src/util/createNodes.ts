@@ -22,7 +22,7 @@ const addViewMealsNode = (node: Node, nodesArr: Node[]): Node => {
   return {
     id: (Number(id) + 1).toString(),
     data: { label: "view Meals", food: data.label },
-    position: { x: xAxisPos + 200, y: yAxisPos - 100 },
+    position: { x: xAxisPos + 400, y: yAxisPos - 100 },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
     type: "viewMealNode",
@@ -76,7 +76,7 @@ const addIngrdientsTagsAndDetailsNode = (
       position: { x: xAxisPos + 300, y: yAxisPos },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
-      type:'ViewTagsNode'
+      type: "ViewTagsNode",
     },
     {
       id: (newId + 3).toString(),
@@ -85,7 +85,7 @@ const addIngrdientsTagsAndDetailsNode = (
       position: { x: xAxisPos + 300, y: yAxisPos + 100 },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
-      // type:'viewDetails'
+      type: "viewDetailsNode",
     },
   ];
 };
@@ -104,7 +104,6 @@ const addIngredientsNode = async (
     const response = await getAllDetailsOfMeals(idMeal);
     const mealDetails = response.data["meals"][0];
 
-
     const ingredients = [];
 
     for (let i = 1; i <= 20; i++) {
@@ -121,6 +120,7 @@ const addIngredientsNode = async (
       position: { x: xAxisPos + 300, y: yAxisPos - index * 100 },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
+      type:'singleIngridientNode'
     }));
   } catch (error) {
     console.error("Error fetching meal details:", error);
@@ -141,18 +141,34 @@ const addTagsNode = async (
   try {
     const response = await getAllDetailsOfMeals(idMeal);
     const mealDetails = response.data["meals"][0];
-    const tags = mealDetails.strTags
-    const ingredients = tags.split(',');
+    const tags = mealDetails.strTags;
 
+    if (!tags) {
+      return [{
+        id: (newId +1).toString(),
+        idMeal,
+        data: { label: 'NA' },
+        position: { x: xAxisPos + 300, y: yAxisPos + 1 * 100 },
+        sourcePosition: Position.Right,
+        targetPosition: Position.Left,
+        type:'notAvailablNode'
+      }];
+    }
 
-    return ingredients.slice(0, 5).map((ingredient : string,index : number)  => ({
+    // Split tags by comma and filter out any empty strings
+    const ingredients = tags
+      .split(",")
+      .map((tag: any) => tag.trim())
+      .filter((tag: any) => tag.length > 0);
+
+    return ingredients.slice(0, 5).map((ingredient: string, index: number) => ({
       id: (newId + index + 1).toString(),
       idMeal,
       data: { label: ingredient },
-      position: { x: xAxisPos + 300, y: yAxisPos + (index * 100) },
+      position: { x: xAxisPos + 300, y: yAxisPos + index * 100 },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
-      type:'ViewTagsNode'
+      type: "ViewTagsNode",
     }));
   } catch (error) {
     console.error("Error fetching tag details:", error);
@@ -166,5 +182,5 @@ export {
   addMealsofSingleCategory,
   addIngrdientsTagsAndDetailsNode,
   addIngredientsNode,
-  addTagsNode
+  addTagsNode,
 };

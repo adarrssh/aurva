@@ -33,16 +33,20 @@ import {
   createViewMealsEdge,
 } from "./util/createEdges";
 import SingleViewMealNode from "./components/singleMealNode";
-import viewIngredientsNode from "./components/viewIngredients";
-import ViewTagsNode from "./components/viewTagsNode";
+import NotAvailablNode from "./components/notAvailableNode";
+import SingleIngridientNode from "./components/singleIngredients";
+
 
 const nodeTypes: NodeTypes = {
   defaultCustomNode,
   categoryCustomNode,
   viewMealNode,
   SingleViewMealNode,
-  viewIngredientsNode,
-  ViewTagsNode
+  viewIngredientsNode : viewMealNode,
+  ViewTagsNode : viewMealNode,
+  viewDetailsNode : viewMealNode,
+  notAvailablNode:NotAvailablNode,
+  singleIngridientNode:SingleIngridientNode
 };
 
 const defaultNode: Node = {
@@ -123,6 +127,7 @@ const App: React.FC = () => {
       }
 
       if(node.type == "ViewTagsNode"){
+        console.log(node)
         const result = await addTagsNode(node,nodes)
         if (result instanceof Error) {
           alert(result.message);

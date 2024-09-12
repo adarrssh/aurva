@@ -39,6 +39,8 @@ const CustomNode: React.FC<NodeProps> = () => {
           justifyContent: "flex-start",
           alignItems: "center",
           alignContent: "center",
+          wordBreak: "break-word",
+          overflowWrap: "break-word", 
         }}
       >
         Explore

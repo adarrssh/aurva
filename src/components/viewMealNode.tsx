@@ -8,10 +8,11 @@ const ViewMealNode: React.FC<NodeProps> = ({data}) => {
       style={{
         display: "flex",
         flexDirection: "row",
-        width: "150px",
-        height: "40px",
+        width: "200px", 
+        height:'40px',
         borderRadius: "2px",
         border: "1px solid black",
+        padding: "5px" 
       }}
     >
       <Handle
@@ -29,7 +30,7 @@ const ViewMealNode: React.FC<NodeProps> = ({data}) => {
           alignContent: "center",
         }}
       >
-        <img src={mealIcon} alt="img"  />
+        <img src={mealIcon} alt="img" width={'40px'} height={'40px'}  />
       </div>
       <div
         style={{
@@ -38,6 +39,8 @@ const ViewMealNode: React.FC<NodeProps> = ({data}) => {
           justifyContent: "flex-start",
           alignItems: "center",
           alignContent: "center",
+          wordBreak: "break-word",
+          overflowWrap: "break-word", 
         }}
       >
         {(data as any).label}

@@ -9,10 +9,10 @@ const CustomNode: React.FC<NodeProps> = ({ data }) => {
       style={{
         display: "flex",
         flexDirection: "row",
-        width: "120px",
-        height: "40px",
+        width: "180px", 
         borderRadius: "2px",
         border: "1px solid black",
+        padding: "5px" 
       }}
     >
       <Handle
@@ -39,6 +39,8 @@ const CustomNode: React.FC<NodeProps> = ({ data }) => {
           justifyContent: "flex-start",
           alignItems: "center",
           alignContent: "center",
+          wordBreak: "break-word", 
+          overflowWrap: "break-word", 
         }}
       >
         {(data as any).label}
