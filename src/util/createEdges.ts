@@ -36,6 +36,31 @@ const createMealsEdge = (node: Node, nodesArr : Node[] ) : Edge[] => {
     }));
 }
 
+const createIngredientsTagsAndDetailsEdge = (node:Node, nodesArr: Node[]) : Edge[] => {
+    
+    const index = Number( nodesArr[nodesArr.length-1].id )
+    const sourceId = Number(node.id)
 
-export {createCategoriesEdges, createViewMealsEdge, createMealsEdge}
+    return [
+
+        {
+            id: 'e' + `${sourceId}` + '-' + `${index + 1}`,
+            source:`${sourceId}`,
+            target:`${index+1}`
+        },
+        {
+            id: 'e' + `${sourceId}` + '-' + `${index + 2}`,
+            source:`${sourceId}`,
+            target:`${index+2}`
+        },
+        {
+            id: 'e' + `${sourceId}` + '-' + `${index + 3}`,
+            source:`${sourceId}`,
+            target:`${index+3}`
+        }
+    ]
+}
+
+
+export {createCategoriesEdges, createViewMealsEdge, createMealsEdge, createIngredientsTagsAndDetailsEdge}
 

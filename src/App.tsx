@@ -17,11 +17,12 @@ import categoryCustomNode from "./components/categoryNode";
 import viewMealNode from "./components/viewMealNode";
 import { fetchCategory, fetchMealsByCategory } from "./services/api";
 import {
+  addIngrdientsTagsAndDetailsNode,
   addMealsofSingleCategory,
   addViewMealsNode,
   convertCategoriesToNodes,
 } from "./util/createNodes";
-import { createCategoriesEdges ,createMealsEdge,createViewMealsEdge } from "./util/createEdges";
+import { createCategoriesEdges ,createIngredientsTagsAndDetailsEdge,createMealsEdge,createViewMealsEdge } from "./util/createEdges";
 import SingleViewMealNode from "./components/singleMealNode";
 
 const nodeTypes: NodeTypes = {
@@ -81,12 +82,18 @@ const App: React.FC = () => {
         const res = await fetchMealsByCategory(food);
         const mealNodes =  addMealsofSingleCategory(node,nodes,res.meals)
         const mealEdges = createMealsEdge(node, mealNodes)
-        
-        console.log([...nodes,...mealNodes]);
-        console.log([...edges, ...mealEdges])
+
         setNodes((nds) => [...nds, ...mealNodes])
         setEdges((nds) => [...nds, ...mealEdges])
         
+      }
+
+      if(node.type == "SingleViewMealNode"){
+        const getNodes = addIngrdientsTagsAndDetailsNode(node, nodes);
+        const getEdges = createIngredientsTagsAndDetailsEdge(node,nodes)
+        setNodes((nds) => [...nds, ...getNodes])
+        setEdges((nds) => [...nds, ...getEdges])
+
       }
     } catch (error) {
       if (error instanceof Error) {

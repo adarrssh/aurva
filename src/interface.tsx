@@ -1,3 +1,5 @@
+import { Node } from "@xyflow/react";
+
 export interface Category {
     idCategory: string;
     strCategory: string;
@@ -10,3 +12,7 @@ export interface Meals {
     strMeal : string,
     strMealThumb : string
 }
+
+export interface CustomNode extends Node {
+    idMeal?: string;
+  }
