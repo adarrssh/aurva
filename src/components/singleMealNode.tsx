@@ -3,55 +3,28 @@ import { Handle, NodeProps, Position } from "@xyflow/react";
 import meals from "../assets/meals.png";
 
 // Define your custom node component
-const SingleViewMealNode: React.FC<NodeProps> = ({data}) => {
+const SingleViewMealNode: React.FC<NodeProps> = ({ data }) => {
   return (
-    <div
-    style={{
-      display: "flex",
-      flexDirection: "row",
-      width: "200px", 
-      borderRadius: "2px",
-      border: "1px solid black",
-      padding: "5px" 
-    }}
-  >
-    <Handle
-      type="source"
-      position={Position.Right}
-      id="sourceHandle"
-      isConnectable={true}
-    />
-    <div
-      style={{
-        display: "flex",
-        flex: "1",
-        justifyContent: "center",
-        alignItems: "center",
-        alignContent: "center",
-      }}
-    >
-      <img src={meals} alt="img" width={'20px'} height={'20px'} />
+    <div className="flex flex-row w-[200px]  rounded border border-black py-2 px-2">
+      <Handle
+        type="source"
+        position={Position.Right}
+        id="sourceHandle"
+        isConnectable={true}
+      />
+      <div className="flex flex-2 justify-center items-center  px-4">
+        <img src={meals} alt="img" width={"20px"} height={"20px"} />
+      </div>
+      <div className="flex flex-1 justify-start items-center break-words overflow-clip">
+        {(data as any).label}
+      </div>
+      <Handle
+        type="target"
+        position={Position.Left}
+        id="targetHandle"
+        isConnectable={true}
+      />
     </div>
-    <div
-      style={{
-        display: "flex",
-        flex: "2",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        alignContent: "center",
-        wordBreak: "break-word",
-        overflowWrap: "break-word", 
-      }}
-    >
-      {(data as any).label}
-    </div>
-    <Handle
-      type="target"
-      position={Position.Left}
-      id="targetHandle"
-      isConnectable={true}
-    />
-  </div>
   );
 };
 

@@ -3,46 +3,21 @@ import { Handle, NodeProps, Position } from "@xyflow/react";
 import mealIcon from "../assets/arrow.png";
 
 // Define your custom node component
-const ViewTagsNode: React.FC<NodeProps> = ({data}) => {
+const ViewTagsNode: React.FC<NodeProps> = ({ data }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        width: "150px",
-        height: "40px",
-        borderRadius: "2px",
-        border: "1px solid black",
-      }}
-    >
+    <div className="flex flex-row w-[150px] h-[40px] rounded border border-black py-2">
       <Handle
         type="source"
         position={Position.Right}
         id="sourceHandle"
         isConnectable={true}
       />
-      <div
-        style={{
-          display: "flex",
-          flex: "1",
-          justifyContent: "center",
-          alignItems: "center",
-          alignContent: "center",
-        }}
-      >
-        <img src={mealIcon} alt="img"  />
+      <div className="flex flex-2 justify-center items-center  px-4">
+        <img src={mealIcon} alt="img" />
       </div>
-      <div
-        style={{
-          display: "flex",
-          flex: "2",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          alignContent: "center",
-        }}
-      >
+      <div className="flex flex-1 justify-start items-center break-words overflow-clip">
         {(data as any).label}
-        </div>
+      </div>
       <Handle
         type="target"
         position={Position.Left}
