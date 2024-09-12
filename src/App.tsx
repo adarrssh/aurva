@@ -35,6 +35,7 @@ import {
 import SingleViewMealNode from "./components/singleMealNode";
 import NotAvailablNode from "./components/notAvailableNode";
 import SingleIngridientNode from "./components/singleIngredients";
+import SingleTagNode from "./components/singleTagNode";
 
 const nodeTypes: NodeTypes = {
   defaultCustomNode,
@@ -46,6 +47,7 @@ const nodeTypes: NodeTypes = {
   viewDetailsNode: viewMealNode,
   notAvailablNode: NotAvailablNode,
   singleIngridientNode: SingleIngridientNode,
+  singleTagNode : SingleTagNode
 };
 
 const defaultNode: Node = {

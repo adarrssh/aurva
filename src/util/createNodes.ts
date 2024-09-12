@@ -169,7 +169,7 @@ const addTagsNode = async (
       position: { x: xAxisPos + 300, y: yAxisPos + index * 100 },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
-      type: "viewTagsNode",
+      type: "singleTagNode",
     }));
   } catch (error) {
     console.error("Error fetching tag details:", error);
