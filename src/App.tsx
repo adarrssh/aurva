@@ -17,10 +17,11 @@ import categoryCustomNode from "./components/categoryNode";
 import viewMealNode from "./components/viewMealNode";
 import { fetchCategory, fetchMealsByCategory } from "./services/api";
 import {
+  addMealsofSingleCategory,
   addViewMealsNode,
   convertCategoriesToNodes,
-} from "./util/convertCategoriesToNodes";
-import { createCategoriesEdges ,createViewMealsEdge } from "./util/createCategoriesEdges";
+} from "./util/createNodes";
+import { createCategoriesEdges ,createMealsEdge,createViewMealsEdge } from "./util/createEdges";
 
 const nodeTypes: NodeTypes = {
   defaultCustomNode,
@@ -76,7 +77,14 @@ const App: React.FC = () => {
         const food: string = data.food as string;
 
         const res = await fetchMealsByCategory(food);
-        console.log(res);
+        const mealNodes =  addMealsofSingleCategory(node,nodes,res.meals)
+        const mealEdges = createMealsEdge(node, mealNodes)
+        
+        console.log([...nodes,...mealNodes]);
+        console.log([...edges, ...mealEdges])
+        setNodes((nds) => [...nds, ...mealNodes])
+        setEdges((nds) => [...nds, ...mealEdges])
+        
       }
     } catch (error) {
       if (error instanceof Error) {

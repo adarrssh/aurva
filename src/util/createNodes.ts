@@ -1,5 +1,5 @@
 import { Edge, Node, Position } from "@xyflow/react";
-import { Category } from "../interface";
+import { Category, Meals } from "../interface";
 
 const convertCategoriesToNodes = (categories: Category[]): Node[] => {
     return categories.slice(0, 5).map((category, index) => ({
@@ -12,13 +12,14 @@ const convertCategoriesToNodes = (categories: Category[]): Node[] => {
     }));
 };
 
+
 const addViewMealsNode = (node: Node, nodesArr : Node[] ) : Node => {
+
     const n = nodesArr.length-1;
     const id = nodesArr[n].id
     const {position, data} = node;
     const {  x : xAxisPos ,  y : yAxisPos  } = position
 
-    console.log(data.label)
 
     return {
         id: (Number(id) + 1).toString(),
@@ -27,11 +28,26 @@ const addViewMealsNode = (node: Node, nodesArr : Node[] ) : Node => {
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
         type: 'viewMealNode',
-
     }
-    
+}
+
+
+const addMealsofSingleCategory =(node: Node, nodesArr : Node[], meals : Meals[] ) : Node[] => {
+
+    const n = nodesArr.length-1;
+    const newId = Number( nodesArr[n].id ) 
+    const {position, data} = node;
+    const {  x : xAxisPos ,  y : yAxisPos  } = position
+
+    return meals.slice(0, 5).map((meal, index) => ({
+        id: (newId + index + 1).toString(),
+        data: { label: meal.strMeal },
+        position : { x : xAxisPos + 300 , y: index * 100 },
+        sourcePosition: Position.Right,
+        targetPosition: Position.Left,
+    }));
 }
 
 
 
-export  {convertCategoriesToNodes, addViewMealsNode}
+export  {convertCategoriesToNodes, addViewMealsNode,addMealsofSingleCategory}

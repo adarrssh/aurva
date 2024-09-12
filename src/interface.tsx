@@ -4,3 +4,9 @@ export interface Category {
     strCategoryThumb: string;
     strCategoryDescription: string;
 }
+
+export interface Meals {
+    idMeal : string,
+    strMeal : string,
+    strMealThumb : string
+}

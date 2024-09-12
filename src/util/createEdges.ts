@@ -15,7 +15,6 @@ const createViewMealsEdge = (node: Node, nodesArr : Node[] ) : Edge=> {
     const id = nodesArr[n].id
     const newId = (Number(id) + 1).toString()
 
-    console.log({newId})
     return {
         id: 'e' + `${sourceId}` + '-' + `${newId}`,
         source:`${sourceId}`,
@@ -24,7 +23,19 @@ const createViewMealsEdge = (node: Node, nodesArr : Node[] ) : Edge=> {
     }
 } 
 
+const createMealsEdge = (node: Node, nodesArr : Node[] ) : Edge[] => {
+    
+    const sourceId = Number(node.id)
+
+    console.log({node,sourceId})
+
+    return nodesArr.slice(0, 5).map((_, index) => ({
+        id: 'e' + `${sourceId}` + '-' + `${sourceId + index + 1}`,
+        source:`${sourceId}`,
+        target:`${sourceId + index+1}`
+    }));
+}
 
 
-export {createCategoriesEdges, createViewMealsEdge}
+export {createCategoriesEdges, createViewMealsEdge, createMealsEdge}
 
