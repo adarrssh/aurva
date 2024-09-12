@@ -41,9 +41,9 @@ const nodeTypes: NodeTypes = {
   defaultCustomNode,
   categoryCustomNode,
   viewMealNode,
-  SingleViewMealNode,
+  singleViewMealNode : SingleViewMealNode,
   viewIngredientsNode : viewMealNode,
-  ViewTagsNode : viewMealNode,
+  viewTagsNode : viewMealNode,
   viewDetailsNode : viewMealNode,
   notAvailablNode:NotAvailablNode,
   singleIngridientNode:SingleIngridientNode
@@ -106,7 +106,7 @@ const App: React.FC = () => {
         setEdges((nds) => [...nds, ...mealEdges]);
       }
 
-      if (node.type == "SingleViewMealNode") {
+      if (node.type == "singleViewMealNode") {
         const getNodes = addIngrdientsTagsAndDetailsNode(node, nodes);
         const getEdges = createIngredientsTagsAndDetailsEdge(node, nodes);
         setNodes((nds) => [...nds, ...getNodes]);
@@ -126,7 +126,7 @@ const App: React.FC = () => {
         setEdges((nds)=>[...nds, ...getEdges])
       }
 
-      if(node.type == "ViewTagsNode"){
+      if(node.type == "viewTagsNode"){
         console.log(node)
         const result = await addTagsNode(node,nodes)
         if (result instanceof Error) {

@@ -46,7 +46,7 @@ const addMealsofSingleCategory = (
     position: { x: xAxisPos + 300, y: index * 100 },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
-    type: "SingleViewMealNode",
+    type: "singleViewMealNode",
   }));
 };
 
@@ -76,7 +76,7 @@ const addIngrdientsTagsAndDetailsNode = (
       position: { x: xAxisPos + 300, y: yAxisPos },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
-      type: "ViewTagsNode",
+      type: "viewTagsNode",
     },
     {
       id: (newId + 3).toString(),
@@ -168,7 +168,7 @@ const addTagsNode = async (
       position: { x: xAxisPos + 300, y: yAxisPos + index * 100 },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
-      type: "ViewTagsNode",
+      type: "viewTagsNode",
     }));
   } catch (error) {
     console.error("Error fetching tag details:", error);
