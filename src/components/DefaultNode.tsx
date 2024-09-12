@@ -3,7 +3,7 @@ import { Handle, NodeProps, Position } from "@xyflow/react";
 import globeIcon from "../assets/image.png";
 
 // Define your custom node component
-const CustomNode: React.FC<NodeProps> = () => {
+const CustomNode: React.FC<NodeProps> = ({  }) => {
   return (
     <div
       style={{
@@ -23,22 +23,26 @@ const CustomNode: React.FC<NodeProps> = () => {
       />
       <div
         style={{
-          display:'flex',
+          display: "flex",
           flex: "1",
-          justifyContent:'center',
-          alignItems:'center',
-          alignContent:'center',
+          justifyContent: "center",
+          alignItems: "center",
+          alignContent: "center",
         }}
       >
-      <img src={globeIcon} alt="img" height={'15px'} width={'15px'} />
+        <img src={globeIcon} alt="img" height={"15px"} width={"15px"} />
       </div>
-      <div         style={{
-          display:'flex',
+      <div
+        style={{
+          display: "flex",
           flex: "2",
-          justifyContent:'flex-start',
-          alignItems:'center',
-          alignContent:'center',
-        }}>Explore</div>
+          justifyContent: "flex-start",
+          alignItems: "center",
+          alignContent: "center",
+        }}
+      >
+        Explore
+      </div>
       <Handle
         type="target"
         position={Position.Left}

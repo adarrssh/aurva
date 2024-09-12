@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ReactFlow, useNodesState, useEdgesState, Node, Edge, Position, Background } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
 import './App.css';
 import defaultCustomNode from './components/DefaultNode';
 import categoryCustomNode from './components/categoryNode';
+import fetchMealCategory from './services/fetchMealCategory';
+import { convertCategoriesToNodes } from './util/convertCategoriesToNodes';
+import { CustomNodeData } from './types';
 
 const nodeTypes = {
   defaultCustomNode,
@@ -12,7 +15,6 @@ const nodeTypes = {
 };
 
 
-// Define types for nodes and edges
 const defaultNode: Node = {
   id: '0',
   data: { label: 'Explore' },
@@ -22,13 +24,7 @@ const defaultNode: Node = {
   type: 'defaultCustomNode'
 };
 
-const additionalNodes: Node[] = [
-  { id: '1', data: { label: 'Node 1' }, position: { x: 300, y: 100 }, sourcePosition: Position.Right, targetPosition: Position.Left, type: 'categoryCustomNode' },
-  { id: '2', data: { label: 'Node 2' }, position: { x: 300, y: 200 }, sourcePosition: Position.Right, targetPosition: Position.Left, type: 'categoryCustomNode' },
-  { id: '3', data: { label: 'Node 3' }, position: { x: 300, y: 300 }, sourcePosition: Position.Right, targetPosition: Position.Left, type: 'categoryCustomNode' },
-  { id: '4', data: { label: 'Node 4' }, position: { x: 300, y: 400 }, sourcePosition: Position.Right, targetPosition: Position.Left, type: 'categoryCustomNode' },
-  { id: '5', data: { label: 'Node 5' }, position: { x: 300, y: 500 }, sourcePosition: Position.Right, targetPosition: Position.Left, type: 'categoryCustomNode' }, 
-];
+
 
 const initialEdges: Edge[] = [
   { id: 'e0-1', source: '0', target: '1' },
@@ -41,18 +37,39 @@ const initialEdges: Edge[] = [
 const defaultViewport = { x: 0, y: 0, zoom: 1.5 };
 
 const App: React.FC = () => {
+
+  
   const [nodes, setNodes, onNodesChange] = useNodesState([defaultNode]);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [additionalNodes, setAdditionalNodes] = useState<Node<CustomNodeData>[]>([])
   const [showAdditionalNodes, setShowAdditionalNodes] = useState<boolean>(false);
 
 
 
   const handleNodeClick = (event: React.MouseEvent, node: Node) => {
+    console.log(additionalNodes)
     if (node.id === '0') {
       setNodes((nds) => [...nds, ...additionalNodes]);
       setShowAdditionalNodes(true);
     }
   };
+
+  useEffect(()=>{
+    let additionalNodes = []
+    async function getMeals(){
+      try {
+        const {categories} = await fetchMealCategory()
+        additionalNodes = convertCategoriesToNodes(categories)
+        setAdditionalNodes(additionalNodes)
+      } catch (error) {
+        console.error(error)
+        alert('something went wrong')
+      }
+    }
+
+    getMeals()
+
+  },[])
 
   return (
     <ReactFlow
