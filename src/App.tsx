@@ -22,11 +22,13 @@ import {
   convertCategoriesToNodes,
 } from "./util/createNodes";
 import { createCategoriesEdges ,createMealsEdge,createViewMealsEdge } from "./util/createEdges";
+import SingleViewMealNode from "./components/singleMealNode";
 
 const nodeTypes: NodeTypes = {
   defaultCustomNode,
   categoryCustomNode,
   viewMealNode,
+  SingleViewMealNode
 };
 
 const defaultNode: Node = {

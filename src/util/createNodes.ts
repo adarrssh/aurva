@@ -20,7 +20,6 @@ const addViewMealsNode = (node: Node, nodesArr : Node[] ) : Node => {
     const {position, data} = node;
     const {  x : xAxisPos ,  y : yAxisPos  } = position
 
-
     return {
         id: (Number(id) + 1).toString(),
         data : {label : 'view Meals', food:data.label},
@@ -33,7 +32,6 @@ const addViewMealsNode = (node: Node, nodesArr : Node[] ) : Node => {
 
 
 const addMealsofSingleCategory =(node: Node, nodesArr : Node[], meals : Meals[] ) : Node[] => {
-
     const n = nodesArr.length-1;
     const newId = Number( nodesArr[n].id ) 
     const {position, data} = node;
@@ -41,13 +39,19 @@ const addMealsofSingleCategory =(node: Node, nodesArr : Node[], meals : Meals[] 
 
     return meals.slice(0, 5).map((meal, index) => ({
         id: (newId + index + 1).toString(),
+        idMeal: meal.idMeal,
         data: { label: meal.strMeal },
         position : { x : xAxisPos + 300 , y: index * 100 },
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
+        type:'SingleViewMealNode'
     }));
 }
 
+
+const addIngrdientsTagsAndDetailsNode = () => {
+    
+}
 
 
 export  {convertCategoriesToNodes, addViewMealsNode,addMealsofSingleCategory}

@@ -14,4 +14,11 @@ const fetchMealsByCategory = async (category:string) => {
   return response.data;
 }
 
-export  {fetchCategory, fetchMealsByCategory};
+const getAllDetailsOfMeals = async (id:string) => {
+  const response = await axios.get(
+    `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+  );
+  return response.data;
+}
+
+export  {fetchCategory, fetchMealsByCategory, getAllDetailsOfMeals};

@@ -1,9 +1,9 @@
 import React from "react";
 import { Handle, NodeProps, Position } from "@xyflow/react";
-import mealIcon from "../assets/arrow.png";
+import meals from "../assets/meals.png";
 
 // Define your custom node component
-const ViewMealNode: React.FC<NodeProps> = ({data}) => {
+const SingleViewMealNode: React.FC<NodeProps> = ({data}) => {
   return (
     <div
       style={{
@@ -12,7 +12,7 @@ const ViewMealNode: React.FC<NodeProps> = ({data}) => {
         width: "150px",
         height: "40px",
         borderRadius: "2px",
-        border: "1px solid black",
+        border: "1px solid black"
       }}
     >
       <Handle
@@ -30,7 +30,7 @@ const ViewMealNode: React.FC<NodeProps> = ({data}) => {
           alignContent: "center",
         }}
       >
-        <img src={mealIcon} alt="img"  />
+        <img src={meals} alt="img" width={'20px'}  height={'20px'} />
       </div>
       <div
         style={{
@@ -53,4 +53,4 @@ const ViewMealNode: React.FC<NodeProps> = ({data}) => {
   );
 };
 
-export default ViewMealNode;
+export default SingleViewMealNode;
