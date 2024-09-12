@@ -36,8 +36,8 @@ const addMealsofSingleCategory = (
 ): Node[] => {
   const n = nodesArr.length - 1;
   const newId = Number(nodesArr[n].id);
-  const { position, data } = node;
-  const { x: xAxisPos, y: yAxisPos } = position;
+  const { position } = node;
+  const { x: xAxisPos } = position;
 
   return meals.slice(0, 5).map((meal, index) => ({
     id: (newId + index + 1).toString(),

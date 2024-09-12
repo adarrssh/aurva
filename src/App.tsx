@@ -67,13 +67,13 @@ const App: React.FC = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [additionalNodes, setAdditionalNodes] = useState<Node[]>([]);
   const [additionalEdges, setAdditionalEdges] = useState<Edge[]>([]);
-
+// @ts-ignore
   const [showAdditionalNodes, setShowAdditionalNodes] =
     useState<boolean>(false);
 
   const [showCategoryNode, setShowCategoryNode] = useState(false);
   const [showMealsNode, setShowMealsNode] = useState(false);
-
+// @ts-ignore
   const handleNodeClick = async (event: React.MouseEvent, node: Node) => {
     try {
 
