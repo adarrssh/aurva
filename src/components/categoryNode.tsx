@@ -4,7 +4,6 @@ import categoryIcon from "../assets/category.png";
 
 
 const CustomNode: React.FC<NodeProps> = ({ data }) => {
-  console.log(data);
   return (
     <div
       style={{
