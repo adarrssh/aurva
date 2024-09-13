@@ -77,7 +77,6 @@ const Graph: React.FC<GraphProps> = ({setMealDetails , showDetailsPopup ,setShow
     useState<boolean>(false);
 
   const [showCategoryNode, setShowCategoryNode] = useState(false);
-  const [showMealsNode, setShowMealsNode] = useState(false);
   const [clickedViewMealNode, setClickedViewMealNode] = useState(false)
   const [clickedOnSingleMealNode, setClickedOnSingleMealNode] = useState(false)
   const [clickedOnShowIngridientsNoe, setClickedOnShowIngridientsNode] = useState(false)
@@ -116,7 +115,6 @@ const Graph: React.FC<GraphProps> = ({setMealDetails , showDetailsPopup ,setShow
           
           setNodes((nds) => [...nds, viewMealNode]);
           setEdges((nds) => [...nds, viewMealEdge]);
-          setShowMealsNode(true);
         }
 
       }
