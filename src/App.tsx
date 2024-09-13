@@ -7,7 +7,7 @@ import { useState } from 'react';
 const App = () => {
 
   const [showDetailsPopup, setShowDetailsPopup] = useState<boolean>(false);
-  const [mealDetails, setMealDetails ] = useState<boolean>(false);
+  const [mealDetails, setMealDetails ] = useState(false);
 
   return (
     <>

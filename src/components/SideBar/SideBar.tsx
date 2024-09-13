@@ -15,7 +15,7 @@ const SideBar: React.FC<SidebarProps> = ({
   } = mealDetails;
 
   return (
-    <div className="absolute right-0 top-0 bg-white w-[500px] z-[1] h-screen shadow-[0_0_0_1px_black] overflow-y-scroll pb-[20px]">
+    <div className="absolute right-0 top-0 bg-white w-[500px] z-[1] h-screen  shadow-left overflow-y-scroll pb-[20px]">
       <div className="w-[500px] h-[60px] flex flex-row justify-between items-center pt-[5px] pb-[5px]">
         <div style={{ paddingLeft: "20px", fontSize: "18px" }}>{strMeal}</div>
         <div
