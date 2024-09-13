@@ -14,7 +14,7 @@ const App = () => {
     <Navabar/>
     <Graph showDetailsPopup={showDetailsPopup} setShowDetailsPopup={setShowDetailsPopup} setMealDetails={setMealDetails}/>
     {
-      showDetailsPopup &&  <SideBar  showDetailsPopup={showDetailsPopup} setShowDetailsPopup={setShowDetailsPopup} mealDetails={mealDetails}/>
+      showDetailsPopup &&  <SideBar setShowDetailsPopup={setShowDetailsPopup} mealDetails={mealDetails}/>
     }
     </>
   )

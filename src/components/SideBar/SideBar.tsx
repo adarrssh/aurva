@@ -3,7 +3,6 @@ import { SidebarProps } from "../../interface";
 
 const SideBar: React.FC<SidebarProps> = ({
   mealDetails,
-  showDetailsPopup,
   setShowDetailsPopup,
 }) => {
   const {
@@ -11,11 +10,9 @@ const SideBar: React.FC<SidebarProps> = ({
     strCategory,
     strInstructions,
     strMealThumb,
-    strSource,
     strYoutube,
     strMeal,
   } = mealDetails;
-  console.log(mealDetails);
 
   return (
     <div className="absolute right-0 top-0 bg-white w-[500px] z-[1] h-screen shadow-[0_0_0_1px_black] overflow-y-scroll pb-[20px]">

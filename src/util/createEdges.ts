@@ -1,5 +1,5 @@
 import { Edge, Node } from "@xyflow/react";
-import { Category } from "../interface";
+import { Category, CustomNode } from "../interface";
 
 const createCategoriesEdges = (categories: Category[]) : Edge[]   => {
     return categories.slice(0, 5).map((_, index) => ({
@@ -36,7 +36,6 @@ const createMealsEdge = (node: Node, nodesArr : Node[] ) : Edge[] => {
 }
 
 const createIngredientsTagsAndDetailsEdge = (node:Node, nodesArr: Node[]) : Edge[] => {
-    
     const index = Number( nodesArr[nodesArr.length-1].id )
     const sourceId = Number(node.id)
 
@@ -62,21 +61,25 @@ const createIngredientsTagsAndDetailsEdge = (node:Node, nodesArr: Node[]) : Edge
 
 const createIngredientEdge = (node: Node, nodesArr: Node[]) : Edge[] => {
     const sourceId = Number(node.id)
+    const  n = nodesArr.length
+    const id = Number(nodesArr[n-1].id)
 
     return nodesArr.slice(0, 5).map((_, index) => ({
-        id: 'e' + `${sourceId}` + '-' + `${sourceId + index + 3}`,
+        id: 'e' + `${sourceId}` + '-' + `${id + 1+  index }`,
         source:`${sourceId}`,
-        target:`${sourceId + index+3}`
+        target:`${id + 1 + index}`
     }));
 }
 
-const createTagsEdge = (node: Node, nodesArr: Node[]) : Edge[] => {
+const createTagsEdge = (node: Node, nodesArr: Node[], result : CustomNode[]) : Edge[] => {
     const sourceId = Number(node.id)
+    const  n = nodesArr.length
+    const id = Number(nodesArr[n-1].id)
 
-    return nodesArr.slice(0, 5).map((_, index) => ({
-        id: 'e' + `${sourceId}` + '-' + `${sourceId + index + 7}`,
+    return result.slice(0, 5).map((_, index) => ({
+        id: 'e' + `${sourceId}` + '-' + `${id+index+1}`,
         source:`${sourceId}`,
-        target:`${sourceId + index+7}`
+        target:`${id+index+1}`
     }));
 }
 

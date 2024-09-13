@@ -87,7 +87,6 @@ const Graph: React.FC<GraphProps> = ({setMealDetails , showDetailsPopup ,setShow
   // @ts-ignore
   const handleNodeClick = async (event: React.MouseEvent, node: Node) => {
 
-    console.log(node)
     try {
       if (node.id === "0" && !showCategoryNode) {
         setNodes((nds) => [...nds, ...additionalNodes]);
@@ -146,18 +145,18 @@ const Graph: React.FC<GraphProps> = ({setMealDetails , showDetailsPopup ,setShow
           alert(result.message);
         } else {
           setNodes((prevNodes) => [...prevNodes, ...result]);
+          const getEdges = createTagsEdge(node,nodes, result);
+          setEdges((nds) => [...nds, ...getEdges]);
+          setClickedOnShowTagNode(true)
         }
 
-        const getEdges = createTagsEdge(node, nodes);
-        setEdges((nds) => [...nds, ...getEdges]);
-        setClickedOnShowTagNode(true)
+
       }
 
       if(node.type == "viewDetailsNode" && !showDetailsPopup ){
         //@ts-ignore
         const response = await getAllDetailsOfMeals(node.idMeal);
         const mealDetails = response.data["meals"][0];
-        console.log(mealDetails)
         const {strInstructions,strMealThumb,strCategory,strArea,strYoutube,strSource,strMeal} = mealDetails
         setMealDetails({
           strInstructions,

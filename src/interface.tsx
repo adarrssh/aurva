@@ -25,6 +25,5 @@ export interface GraphProps {
 
 export interface SidebarProps {
     mealDetails: any;
-    showDetailsPopup : boolean;
     setShowDetailsPopup: (show: boolean) => void;
 }
