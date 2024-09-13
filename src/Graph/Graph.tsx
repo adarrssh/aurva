@@ -37,6 +37,7 @@ import NotAvailablNode from "../components/customNodes/notAvailableNode";
 import SingleIngridientNode from "../components/customNodes/singleIngredients";
 import SingleTagNode from "../components/customNodes/singleTagNode";
 import { GraphProps } from "../interface";
+import { checkForViewDetailsNode } from "../util/util";
 
 const nodeTypes: NodeTypes = {
   defaultCustomNode,
@@ -73,12 +74,10 @@ const Graph: React.FC<GraphProps> = ({setMealDetails , showDetailsPopup ,setShow
   const [additionalEdges, setAdditionalEdges] = useState<Edge[]>([]);
 
   // @ts-ignore
-  const [showAdditionalNodes, setShowAdditionalNodes] =
-    useState<boolean>(false);
+  const [showAdditionalNodes, setShowAdditionalNodes] = useState<boolean>(false);
 
   const [showCategoryNode, setShowCategoryNode] = useState(false);
   const [clickedViewMealNode, setClickedViewMealNode] = useState(false)
-  const [clickedOnSingleMealNode, setClickedOnSingleMealNode] = useState(false)
   const [clickedOnShowIngridientsNoe, setClickedOnShowIngridientsNode] = useState(false)
   const [clickedOnShowTagNode, setClickedOnShowTagNode] = useState(false)
   
@@ -86,8 +85,6 @@ const Graph: React.FC<GraphProps> = ({setMealDetails , showDetailsPopup ,setShow
   // @ts-ignore
   const handleNodeClick = async (event: React.MouseEvent, node: Node) => {
 
-    console.log(nodes)
-    console.log(edges)
     try {
       if (node.id === "0" && !showCategoryNode) {
         setNodes((nds) => [...nds, ...additionalNodes]);
@@ -132,12 +129,28 @@ const Graph: React.FC<GraphProps> = ({setMealDetails , showDetailsPopup ,setShow
         setClickedViewMealNode(true)
       }
 
-      if (node.type == "singleViewMealNode" && !clickedOnSingleMealNode) {
-        const getNodes = addIngrdientsTagsAndDetailsNode(node, nodes);
-        const getEdges = createIngredientsTagsAndDetailsEdge(node, nodes);
-        setNodes((nds) => [...nds, ...getNodes]);
-        setEdges((nds) => [...nds, ...getEdges]);
-        setClickedOnSingleMealNode(true)
+      if (node.type == "singleViewMealNode") {
+
+        const type = nodes[nodes.length-1].type
+
+        // @ts-ignore
+        const isViewDetailsPresent = checkForViewDetailsNode(nodes)
+
+        if( !clickedOnShowIngridientsNoe && !clickedOnShowTagNode && type === "viewDetailsNode"){
+          const arrofNodes = nodes.slice(0,nodes.length-3)
+          const arrofEdges = edges.slice(0,edges.length-3)
+
+          const getNodes = addIngrdientsTagsAndDetailsNode(node, arrofNodes);
+          const getEdges = createIngredientsTagsAndDetailsEdge(node, arrofNodes);
+                 
+          setNodes([...arrofNodes,...getNodes]);
+          setEdges([...arrofEdges, ...getEdges]);
+        }else if(!isViewDetailsPresent){
+          const getNodes = addIngrdientsTagsAndDetailsNode(node, nodes);
+          const getEdges = createIngredientsTagsAndDetailsEdge(node, nodes);
+          setNodes((nds) => [...nds, ...getNodes]);
+          setEdges((nds) => [...nds, ...getEdges]);
+        }
       }
 
       if (node.type == "viewIngredientsNode" && !clickedOnShowIngridientsNoe) {
