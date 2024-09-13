@@ -5,7 +5,7 @@ import meals from "../../assets/meals.png";
 // Define your custom node component
 const viewIngredientsNode: React.FC<NodeProps> = ({data}) => {
   return (
-    <div className="flex flex-row w-[180px] rounded border border-black py-2">
+    <div className="flex flex-row w-[180px] rounded border border-black py-2 px-5">
       <Handle
         type="source"
         position={Position.Right}

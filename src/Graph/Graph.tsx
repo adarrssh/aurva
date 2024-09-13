@@ -14,7 +14,7 @@ import "@xyflow/react/dist/style.css";
 import defaultCustomNode from "../components/customNodes/DefaultNode";
 import categoryCustomNode from "../components/customNodes/categoryNode";
 import viewMealNode from "../components/customNodes/viewMealNode";
-import { fetchCategory, fetchMealsByCategory } from "../services/api";
+import { fetchCategory, fetchMealsByCategory, getAllDetailsOfMeals } from "../services/api";
 import {
   addIngrdientsTagsAndDetailsNode,
   addIngredientsNode,
@@ -36,6 +36,7 @@ import SingleViewMealNode from "../components/customNodes/singleMealNode";
 import NotAvailablNode from "../components/customNodes/notAvailableNode";
 import SingleIngridientNode from "../components/customNodes/singleIngredients";
 import SingleTagNode from "../components/customNodes/singleTagNode";
+import { GraphProps } from "../interface";
 
 const nodeTypes: NodeTypes = {
   defaultCustomNode,
@@ -63,7 +64,9 @@ const initialEdges: Edge[] = [];
 
 const defaultViewport = { x: 0, y: 0, zoom: 1.5 };
 
-const Graph: React.FC = () => {
+
+const Graph: React.FC<GraphProps> = ({setMealDetails , showDetailsPopup ,setShowDetailsPopup}) => {
+
   const [nodes, setNodes, onNodesChange] = useNodesState([defaultNode]);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [additionalNodes, setAdditionalNodes] = useState<Node[]>([]);
@@ -79,11 +82,12 @@ const Graph: React.FC = () => {
   const [clickedOnSingleMealNode, setClickedOnSingleMealNode] = useState(false)
   const [clickedOnShowIngridientsNoe, setClickedOnShowIngridientsNode] = useState(false)
   const [clickedOnShowTagNode, setClickedOnShowTagNode] = useState(false)
+  
 
   // @ts-ignore
   const handleNodeClick = async (event: React.MouseEvent, node: Node) => {
 
-    console.log(nodes)
+    console.log(node)
     try {
       if (node.id === "0" && !showCategoryNode) {
         setNodes((nds) => [...nds, ...additionalNodes]);
@@ -148,6 +152,26 @@ const Graph: React.FC = () => {
         setEdges((nds) => [...nds, ...getEdges]);
         setClickedOnShowTagNode(true)
       }
+
+      if(node.type == "viewDetailsNode" && !showDetailsPopup ){
+        //@ts-ignore
+        const response = await getAllDetailsOfMeals(node.idMeal);
+        const mealDetails = response.data["meals"][0];
+        console.log(mealDetails)
+        const {strInstructions,strMealThumb,strCategory,strArea,strYoutube,strSource,strMeal} = mealDetails
+        setMealDetails({
+          strInstructions,
+          strMealThumb,
+          strCategory,
+          strArea,
+          strYoutube,
+          strSource,
+          strMeal
+        })
+        setShowDetailsPopup(true)
+      }
+
+
     } catch (error) {
       if (error instanceof Error) {
         console.error(error);

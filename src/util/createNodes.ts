@@ -117,7 +117,7 @@ const addIngredientsNode = async (
       id: (newId + index + 1).toString(),
       idMeal,
       data: { label: ingredient },
-      position: { x: xAxisPos + 300, y: yAxisPos - index * 100 },
+      position: { x: xAxisPos + 300, y: yAxisPos - (index * 100) },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
       type: "singleIngridientNode",

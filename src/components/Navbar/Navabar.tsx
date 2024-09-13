@@ -1,8 +1,8 @@
 
 const Navabar = () => {
   return (
-    <div className="shadow-bottom p-4">
-      <h2 className="text-left">Your Heading</h2>
+    <div className="shadow-bottom p-4 font-bold">
+      <h2 className="text-left">Food Explorer</h2>
     </div>
   );
 };
