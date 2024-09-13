@@ -87,6 +87,8 @@ const Graph: React.FC<GraphProps> = ({setMealDetails , showDetailsPopup ,setShow
   // @ts-ignore
   const handleNodeClick = async (event: React.MouseEvent, node: Node) => {
 
+    console.log(nodes)
+    console.log(edges)
     try {
       if (node.id === "0" && !showCategoryNode) {
         setNodes((nds) => [...nds, ...additionalNodes]);
@@ -95,13 +97,28 @@ const Graph: React.FC<GraphProps> = ({setMealDetails , showDetailsPopup ,setShow
         setShowCategoryNode(true);
       }
 
-      if (node.type == "categoryCustomNode" && !showMealsNode) {
-        setShowMealsNode(true);
-        const viewMealNode = addViewMealsNode(node, nodes);
-        const viewMealEdge = createViewMealsEdge(node, nodes);
-        setNodes((nds) => [...nds, viewMealNode]);
+      if (node.type == "categoryCustomNode") {
 
-        setEdges((nds) => [...nds, viewMealEdge]);
+        const type = nodes[nodes.length-1].type
+
+        if(type == "viewMealNode"){
+
+          const arrofNodes = nodes.slice(0,nodes.length-1)
+          const arrofEdges = edges.slice(0,edges.length-1)
+          const viewMealNode = addViewMealsNode(node, arrofNodes);
+          const viewMealEdge = createViewMealsEdge(node, arrofNodes);
+                 
+          setNodes([...arrofNodes,viewMealNode]);
+          setEdges([...arrofEdges, viewMealEdge]);
+        }else if(!clickedViewMealNode){ 
+          const viewMealNode = addViewMealsNode(node, nodes);
+          const viewMealEdge = createViewMealsEdge(node, nodes);
+          
+          setNodes((nds) => [...nds, viewMealNode]);
+          setEdges((nds) => [...nds, viewMealEdge]);
+          setShowMealsNode(true);
+        }
+
       }
 
       if (node.type == "viewMealNode" && !clickedViewMealNode) {
