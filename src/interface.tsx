@@ -17,13 +17,23 @@ export interface CustomNode extends Node {
   idMeal?: string;
 }
 
+interface details {
+  strArea: string;
+  strCategory: string;
+  strInstructions: string;
+  strMealThumb: string;
+  strYoutube: string;
+  strMeal: string;
+  strSource: string;
+}
+
 export interface GraphProps {
-  setMealDetails: (details: any) => void;
+  setMealDetails: (details: details) => void;
   showDetailsPopup: boolean;
   setShowDetailsPopup: (show: boolean) => void;
 }
 
 export interface SidebarProps {
-    mealDetails: any;
-    setShowDetailsPopup: (show: boolean) => void;
+  mealDetails: details;
+  setShowDetailsPopup: (show: boolean) => void;
 }
